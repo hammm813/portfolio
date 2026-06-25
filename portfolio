@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>川瀬美夏 — Portfolio</title>
+  <style>
+    :root {
+      --pink:    #FF8FAB;
+      --pink-lt: #FFD6E7;
+      --yellow:  #FFD166;
+      --yellow-lt: #FFF3CD;
+      --lavender: #C9B8F5;
+      --lav-lt:  #EDE8FC;
+      --mint:    #A8E6CF;
+      --bg:      #FFF9FC;
+      --text:    #3D2C35;
+      --sub:     #7A6070;
+      --card-bg: #FFFFFF;
+      --radius:  18px;
+      --shadow:  0 4px 20px rgba(255,143,171,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,249,252,0.88);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 40px;
+      border-bottom: 1.5px solid var(--pink-lt);
+    }
+    .nav-logo { font-size: 1.1rem; font-weight: 700; color: var(--pink); letter-spacing: .04em; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      text-decoration: none; color: var(--sub); font-size: .9rem;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--pink); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 100px 24px 60px;
+      background: linear-gradient(135deg, #FFF0F5 0%, #FFF9E6 50%, #F0EAFF 100%);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-deco {
+      position: absolute; border-radius: 50%; opacity: .35; filter: blur(60px);
+    }
+    .deco1 { width:320px; height:320px; background: var(--pink);   top:-80px;  left:-80px; }
+    .deco2 { width:260px; height:260px; background: var(--yellow);  bottom:-60px; right:-60px; }
+    .deco3 { width:200px; height:200px; background: var(--lavender); top:40%; left:60%; }
+
+    .hero-inner { position: relative; z-index: 1; }
+
+    .hero-avatar {
+      width: 120px; height: 120px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink), var(--yellow));
+      margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.2rem;
+      box-shadow: 0 8px 32px rgba(255,143,171,.4);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--pink-lt); color: var(--pink);
+      font-size: .8rem; font-weight: 700; letter-spacing: .08em;
+      padding: 4px 16px; border-radius: 20px; margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--pink) 0%, #C47AFF 60%, var(--yellow) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--sub); margin-bottom: 32px;
+    }
+
+    .chips {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+      margin-bottom: 36px;
+    }
+    .chip {
+      padding: 6px 18px; border-radius: 20px; font-size: .82rem; font-weight: 600;
+      border: 1.5px solid;
+    }
+    .chip-pink   { background: var(--pink-lt);   color: #c2185b; border-color: var(--pink); }
+    .chip-yellow { background: var(--yellow-lt);  color: #a07a00; border-color: var(--yellow); }
+    .chip-lav    { background: var(--lav-lt);     color: #6a3dbe; border-color: var(--lavender); }
+    .chip-mint   { background: #e8f9f2;           color: #1a7a52; border-color: var(--mint); }
+
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--pink), #C47AFF);
+      color: #fff; font-weight: 700; font-size: 1rem;
+      padding: 14px 36px; border-radius: 50px; text-decoration: none;
+      box-shadow: 0 6px 24px rgba(255,143,171,.5);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(255,143,171,.6); }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 80px 24px; }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--pink-lt); color: var(--pink);
+      font-size: .78rem; font-weight: 700; letter-spacing: .1em;
+      padding: 4px 14px; border-radius: 20px; margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 800; margin-bottom: 8px;
+    }
+    .section-desc { color: var(--sub); margin-bottom: 40px; }
+
+    /* ── ABOUT ── */
+    #about { background: #fff; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    @media (max-width: 640px) { .about-grid { grid-template-columns: 1fr; } }
+
+    .about-card {
+      background: var(--bg); border-radius: var(--radius);
+      padding: 28px; border: 1.5px solid var(--pink-lt);
+      position: relative; overflow: hidden;
+    }
+    .about-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--pink), var(--yellow), var(--lavender));
+    }
+    .about-card-icon { font-size: 2rem; margin-bottom: 12px; }
+    .about-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .about-card p, .about-card ul { font-size: .9rem; color: var(--sub); }
+    .about-card ul { padding-left: 16px; }
+    .about-card li { margin-bottom: 4px; }
+
+    /* ── SKILLS ── */
+    #skills { background: linear-gradient(180deg, #FFF9FC 0%, #FFF0F9 100%); }
+
+    .skill-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;
+    }
+    .skill-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid;
+      transition: transform .2s;
+    }
+    .skill-card:hover { transform: translateY(-4px); }
+    .skill-card.pink   { border-color: var(--pink); }
+    .skill-card.yellow { border-color: var(--yellow); }
+    .skill-card.lav    { border-color: var(--lavender); }
+    .skill-card.mint   { border-color: var(--mint); }
+
+    .skill-icon { font-size: 2.2rem; margin-bottom: 12px; }
+    .skill-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: .75rem; padding: 3px 12px; border-radius: 12px;
+      font-weight: 600;
+    }
+    .tag-pink   { background: var(--pink-lt);   color: #c2185b; }
+    .tag-yellow { background: var(--yellow-lt);  color: #a07a00; }
+    .tag-lav    { background: var(--lav-lt);     color: #6a3dbe; }
+    .tag-mint   { background: #e8f9f2;           color: #1a7a52; }
+
+    /* ── WORKS ── */
+    #works { background: #fff; }
+
+    .works-list { display: flex; flex-direction: column; gap: 20px; }
+    .work-card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      border: 1.5px solid var(--pink-lt);
+      display: flex; align-items: flex-start; gap: 20px;
+    }
+    .work-num {
+      flex-shrink: 0;
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, var(--pink-lt), var(--lav-lt));
+    }
+    .work-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .work-body p  { font-size: .88rem; color: var(--sub); }
+    .work-tags    { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+    /* ── TOOLS ── */
+    #tools { background: linear-gradient(180deg, #FFF9FC 0%, #FFFBF0 100%); }
+
+    .tool-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 14px;
+    }
+    .tool-item {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px 10px;
+      text-align: center;
+      border: 1.5px solid #f3e8f5;
+      box-shadow: 0 2px 10px rgba(255,143,171,.08);
+      transition: transform .2s;
+    }
+    .tool-item:hover { transform: translateY(-3px); }
+    .tool-item .t-icon { font-size: 1.8rem; margin-bottom: 6px; }
+    .tool-item .t-name { font-size: .78rem; font-weight: 600; color: var(--sub); }
+
+    /* ── STYLE ── */
+    #style { background: #fff; }
+    .style-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;
+    }
+    .style-item {
+      text-align: center; padding: 32px 20px;
+      border-radius: var(--radius);
+      background: var(--bg);
+    }
+    .style-icon { font-size: 2.6rem; margin-bottom: 12px; }
+    .style-item h3 { font-size: .95rem; font-weight: 700; margin-bottom: 6px; }
+    .style-item p  { font-size: .83rem; color: var(--sub); }
+
+    /* ── AVAILABILITY ── */
+    #availability {
+      background: linear-gradient(135deg, #FFE8F3, #FFF9E0, #EDE8FC);
+      text-align: center;
+    }
+    .avail-box {
+      display: inline-flex; flex-wrap: wrap; gap: 20px;
+      justify-content: center; margin-top: 32px;
+    }
+    .avail-card {
+      background: #fff; border-radius: var(--radius); padding: 28px 36px;
+      box-shadow: var(--shadow); min-width: 180px;
+    }
+    .avail-icon { font-size: 2rem; margin-bottom: 10px; }
+    .avail-val  { font-size: 1.5rem; font-weight: 800; color: var(--pink); }
+    .avail-lbl  { font-size: .83rem; color: var(--sub); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #3D2C35; color: #d4b8c8; text-align: center;
+      padding: 36px 20px; font-size: .85rem;
+    }
+    footer span { color: var(--pink); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🌸 Mika Kawase</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#works">Works</a>
+    <a href="#tools">Tools</a>
+    <a href="#availability">Availability</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-deco deco1"></div>
+  <div class="hero-deco deco2"></div>
+  <div class="hero-deco deco3"></div>
+  <div class="hero-inner">
+    <div class="hero-avatar">🌸</div>
+    <div class="hero-tag">✨ FREELANCE</div>
+    <h1>川瀬 美夏</h1>
+    <p class="hero-sub">AI活用 × コミュニティ運営 × 業務効率化</p>
+    <div class="chips">
+      <span class="chip chip-pink">🤖 AI活用</span>
+      <span class="chip chip-yellow">💬 コミュニティ運営</span>
+      <span class="chip chip-lav">⚙️ 業務効率化</span>
+      <span class="chip chip-mint">📲 SNS運用</span>
+      <span class="chip chip-pink">🌐 Webアプリ開発支援</span>
+    </div>
+    <a href="#works" class="btn-primary">実績を見る →</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">🌼 About Me</div>
+    <h2 class="section-title">私について</h2>
+    <p class="section-desc">AIツールとコミュニティ運営を掛け合わせ、クライアントの業務を前に進めるフリーランスです。</p>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-card-icon">💼</div>
+        <h3>現在の働き方</h3>
+        <ul>
+          <li>フリーランスとして複数案件を並行担当</li>
+          <li>フルリモート中心</li>
+          <li>月80〜100時間稼働可能</li>
+          <li>稼働開始：即日〜（相談可）</li>
+        </ul>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🎯</div>
+        <h3>得意なこと</h3>
+        <ul>
+          <li>AIを使った業務フロー整備・改善</li>
+          <li>コミュニティ運営・会員サポート</li>
+          <li>ツール連携・自動化の設計</li>
+          <li>分かりやすいマニュアル・資料作成</li>
+        </ul>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🌸</div>
+        <h3>強み</h3>
+        <ul>
+          <li>AIネイティブな業務スタイル</li>
+          <li>運営側・ユーザー側双方の視点</li>
+          <li>スピード感と丁寧さの両立</li>
+          <li>柔軟な対応力・再現性のある仕組み化</li>
+        </ul>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">✨</div>
+        <h3>大切にしていること</h3>
+        <ul>
+          <li>クライアントの「困った」を先取りする</li>
+          <li>属人化しない仕組みをつくる</li>
+          <li>コミュニケーションの丁寧さ</li>
+          <li>継続して成果を出せる関係性</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">💫 Skills</div>
+    <h2 class="section-title">スキル</h2>
+    <p class="section-desc">AIを軸に、運営・開発支援・自動化まで幅広くカバーします。</p>
+    <div class="skill-grid">
+
+      <div class="skill-card pink">
+        <div class="skill-icon">🤖</div>
+        <h3>AI活用・業務効率化</h3>
+        <div class="tag-list">
+          <span class="tag tag-pink">ChatGPT</span>
+          <span class="tag tag-pink">Claude</span>
+          <span class="tag tag-pink">Gemini</span>
+          <span class="tag tag-pink">Codex</span>
+          <span class="tag tag-pink">プロンプト設計</span>
+          <span class="tag tag-pink">業務フロー整備</span>
+        </div>
+      </div>
+
+      <div class="skill-card yellow">
+        <div class="skill-icon">💬</div>
+        <h3>コミュニティ・CS運営</h3>
+        <div class="tag-list">
+          <span class="tag tag-yellow">Discord運営</span>
+          <span class="tag tag-yellow">LINE公式</span>
+          <span class="tag tag-yellow">UTAGE</span>
+          <span class="tag tag-yellow">OSIRO</span>
+          <span class="tag tag-yellow">会員サポート</span>
+          <span class="tag tag-yellow">イベント運営</span>
+        </div>
+      </div>
+
+      <div class="skill-card lav">
+        <div class="skill-icon">⚙️</div>
+        <h3>自動化・開発支援</h3>
+        <div class="tag-list">
+          <span class="tag tag-lav">Google Apps Script</span>
+          <span class="tag tag-lav">Google Workspace</span>
+          <span class="tag tag-lav">Webアプリ開発支援</span>
+          <span class="tag tag-lav">API連携</span>
+          <span class="tag tag-lav">スプレッドシート自動化</span>
+        </div>
+      </div>
+
+      <div class="skill-card mint">
+        <div class="skill-icon">📲</div>
+        <h3>SNS・コンテンツ運用</h3>
+        <div class="tag-list">
+          <span class="tag tag-mint">Instagram運用</span>
+          <span class="tag tag-mint">Slack</span>
+          <span class="tag tag-mint">SNS運用支援</span>
+          <span class="tag tag-mint">資料作成</span>
+          <span class="tag tag-mint">マニュアル整備</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="container">
+    <div class="section-label">🌟 Works</div>
+    <h2 class="section-title">主な実績・経験</h2>
+    <p class="section-desc">※守秘義務のため詳細は非公開。面談にて詳しくご説明します。</p>
+    <div class="works-list">
+
+      <div class="work-card">
+        <div class="work-num">🤖</div>
+        <div class="work-body">
+          <h3>会員向けニュースレポート Webアプリ開発支援</h3>
+          <p>AIエージェントを活用し、週次ニュースを自動収集・整形・HTML出力するWebアプリを設計・実装支援。Claude Codeを用いてワークフロー全体を構築。</p>
+          <div class="work-tags">
+            <span class="tag tag-pink">Claude Code</span>
+            <span class="tag tag-lav">AI自動化</span>
+            <span class="tag tag-mint">HTML/CSS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-num">💎</div>
+        <div class="work-body">
+          <h3>SHIFT AI コミュニティ運営・オンライン秘書</h3>
+          <p>Discord / LINE公式 / UTAGE / OSIRO を活用したコミュニティ運営全般。会員サポート、イベント運営、マニュアル作成、業務改善フローの整備まで担当。</p>
+          <div class="work-tags">
+            <span class="tag tag-yellow">Discord</span>
+            <span class="tag tag-yellow">UTAGE</span>
+            <span class="tag tag-yellow">会員サポート</span>
+            <span class="tag tag-lav">業務改善</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-num">📱</div>
+        <div class="work-body">
+          <h3>Instagram / SNS 運用支援</h3>
+          <p>クライアントのInstagramアカウントをメイン担当として運用。コンテンツ企画・投稿管理・フォロワー対応まで一括支援。</p>
+          <div class="work-tags">
+            <span class="tag tag-mint">Instagram</span>
+            <span class="tag tag-mint">コンテンツ企画</span>
+            <span class="tag tag-pink">SNS運用</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-num">⚙️</div>
+        <div class="work-body">
+          <h3>Google Apps Script による業務自動化</h3>
+          <p>スプレッドシートと連携した管理ツールや通知自動化システムを構築。Discord / Slack / LINE 等への連携も含む運営支援ツールを整備。</p>
+          <div class="work-tags">
+            <span class="tag tag-lav">GAS</span>
+            <span class="tag tag-lav">Google Workspace</span>
+            <span class="tag tag-yellow">Slack</span>
+            <span class="tag tag-yellow">Discord</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="container">
+    <div class="section-label">🛠️ Tools</div>
+    <h2 class="section-title">使用ツール</h2>
+    <p class="section-desc">日常的に活用しているツール一覧です。</p>
+    <div class="tool-grid">
+      <div class="tool-item"><div class="t-icon">🤖</div><div class="t-name">Claude</div></div>
+      <div class="tool-item"><div class="t-icon">💬</div><div class="t-name">ChatGPT</div></div>
+      <div class="tool-item"><div class="t-icon">✨</div><div class="t-name">Gemini</div></div>
+      <div class="tool-item"><div class="t-icon">🧑‍💻</div><div class="t-name">Codex</div></div>
+      <div class="tool-item"><div class="t-icon">💎</div><div class="t-name">Discord</div></div>
+      <div class="tool-item"><div class="t-icon">💛</div><div class="t-name">LINE公式</div></div>
+      <div class="tool-item"><div class="t-icon">🟣</div><div class="t-name">UTAGE</div></div>
+      <div class="tool-item"><div class="t-icon">💚</div><div class="t-name">Slack</div></div>
+      <div class="tool-item"><div class="t-icon">📊</div><div class="t-name">スプレッドシート</div></div>
+      <div class="tool-item"><div class="t-icon">⚙️</div><div class="t-name">GAS</div></div>
+      <div class="tool-item"><div class="t-icon">📄</div><div class="t-name">Google Docs</div></div>
+      <div class="tool-item"><div class="t-icon">📱</div><div class="t-name">Instagram</div></div>
+      <div class="tool-item"><div class="t-icon">📝</div><div class="t-name">Word</div></div>
+      <div class="tool-item"><div class="t-icon">📊</div><div class="t-name">Excel</div></div>
+      <div class="tool-item"><div class="t-icon">🖼️</div><div class="t-name">PowerPoint</div></div>
+      <div class="tool-item"><div class="t-icon">📂</div><div class="t-name">OSIRO</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK STYLE -->
+<section id="style">
+  <div class="container">
+    <div class="section-label">💼 Work Style</div>
+    <h2 class="section-title">働き方のスタイル</h2>
+    <p class="section-desc">スピードと丁寧さを両立し、仕組みで成果を出し続けます。</p>
+    <div class="style-grid">
+      <div class="style-item">
+        <div class="style-icon">⚡</div>
+        <h3>スピード重視</h3>
+        <p>依頼後のレスポンスを最優先。素早く動いて結果を出します。</p>
+      </div>
+      <div class="style-item">
+        <div class="style-icon">🗂️</div>
+        <h3>仕組み化</h3>
+        <p>属人化しない再現性のある業務フローを整備します。</p>
+      </div>
+      <div class="style-item">
+        <div class="style-icon">🤝</div>
+        <h3>コミュニケーション</h3>
+        <p>報告・確認を密にし、安心して任せていただける関係を目指します。</p>
+      </div>
+      <div class="style-item">
+        <div class="style-icon">🌱</div>
+        <h3>継続改善</h3>
+        <p>一度やって終わりではなく、よりよくする提案を続けます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVAILABILITY -->
+<section id="availability">
+  <div class="container">
+    <div class="section-label">📅 Availability</div>
+    <h2 class="section-title">稼働情報</h2>
+    <p class="section-desc">フルリモートで即日〜対応可能です。スケジュールはご相談ください。</p>
+    <div class="avail-box">
+      <div class="avail-card">
+        <div class="avail-icon">⏱️</div>
+        <div class="avail-val">80〜100h</div>
+        <div class="avail-lbl">月間稼働時間</div>
+      </div>
+      <div class="avail-card">
+        <div class="avail-icon">🚀</div>
+        <div class="avail-val">即日〜</div>
+        <div class="avail-lbl">稼働開始（相談可）</div>
+      </div>
+      <div class="avail-card">
+        <div class="avail-icon">🌐</div>
+        <div class="avail-val">フルリモート</div>
+        <div class="avail-lbl">勤務スタイル</div>
+      </div>
+      <div class="avail-card">
+        <div class="avail-icon">🗓️</div>
+        <div class="avail-val">相談可</div>
+        <div class="avail-lbl">稼働日・時間帯</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>川瀬 美夏</span> — AI活用 × コミュニティ運営 × 業務効率化</p>
+</footer>
+
+</body>
+</html>
